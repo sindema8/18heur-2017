@@ -24,7 +24,7 @@
 # * Python: [reasons why](https://www.stat.washington.edu/~hoytak/blog/whypython.html), Jupyter notebook: [reasons why](http://www.nature.com/news/interactive-notebooks-sharing-the-code-1.16261),
 # * download & install from [here](https://www.continuum.io/downloads).
 # 
-# All **resources** will be on [GitHub](https://github.com/matejmojzes/18bi-2017) and [kmlinux](http://kmlinux.fjfi.cvut.cz/~mojzemat/).
+# All **resources** will be on [GitHub](https://github.com/matejmojzes/18heur-2017) and [kmlinux](http://kmlinux.fjfi.cvut.cz/~mojzemat/).
 
 # ### About _zápočet_
 # 
@@ -71,7 +71,7 @@
 # * When trying to find the highest peak, remember 1.) the highest altitude reached, 2.) number of paratroops planted before hitting the highest peak (you will compute some basic statistics based on these two vectors)
 # * **Enter your results into [Google Form questionnaire](https://goo.gl/forms/cGNtyXfzud35KgRA3)**
 
-# ## 4. Results analysis
+# ## 3. Results analysis
 # 
 # Let us compare two simple (but sometimes surprisingly efficient) heuristics:
 # 
@@ -108,7 +108,7 @@
 # * distance from optimum: **Random Shooting** ($94 > 24.5$)
 # 
 
-# ## 5. Conclusions
+# ## 4. Conclusions
 # 
 # When optimizing an objective function using heuristics:
 # 
