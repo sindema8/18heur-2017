@@ -24,7 +24,7 @@
 # * Python: [reasons why](https://www.stat.washington.edu/~hoytak/blog/whypython.html), Jupyter notebook: [reasons why](http://www.nature.com/news/interactive-notebooks-sharing-the-code-1.16261),
 # * download & install from [here](https://www.continuum.io/downloads).
 # 
-# All **resources** will be on [GitHub](https://github.com/matejmojzes/18heur-2017) and [kmlinux](http://kmlinux.fjfi.cvut.cz/~mojzemat/).
+# All **resources** will be on [GitHub](https://github.com/matejmojzes/18heur-2017). Any meaningful pull requests will be taken into account during your evaluation.
 
 # ### About _zápočet_
 # 
