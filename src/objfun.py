@@ -65,11 +65,11 @@ class AirShip(ObjFun):
 class Sum(ObjFun):
 
     def __init__(self, a, b):
-        self.n = np.size(a)  # dimension
+        self.n = np.size(a)  # dimension of the task
         super().__init__(fstar=0, a=a, b=b)
 
     def generate_point(self):
-        return [np.random.randint(self.a[i], self.b[i]) for i in np.arange(self.n)]
+        return [np.random.randint(self.a[i], self.b[i]+1) for i in np.arange(self.n)]
 
     def get_neighborhood(self, x, d):
         assert d == 1, "Sum(x) supports neighbourhood with distance = 1 only"

@@ -14,8 +14,6 @@ class Heuristic:
     def __init__(self, of, maxeval):
         self.of = of
         self.maxeval = maxeval
-        self.fstar = of.get_fstar()  # local copy of obj. fun. fstar
-        [self.a, self.b] = of.get_bounds()  # local copy of obj. fun. domain bounds
         self.best_y = np.inf
         self.best_x = None
         self.neval = 0
@@ -26,7 +24,7 @@ class Heuristic:
         if y < self.best_y:
             self.best_y = y
             self.best_x = x
-        if y <= self.fstar:
+        if y <= self.of.get_fstar():
             raise StopCriterion('Found solution with desired fstar value')
         if self.neval == self.maxeval:
             raise StopCriterion('Exhausted maximum allowed number of evaluations')
@@ -36,7 +34,7 @@ class Heuristic:
         return {
             'best_y': self.best_y,
             'best_x': self.best_x,
-            'neval': self.neval if self.best_y <= self.fstar else np.inf
+            'neval': self.neval if self.best_y <= self.of.get_fstar() else np.inf
         }
 
 
