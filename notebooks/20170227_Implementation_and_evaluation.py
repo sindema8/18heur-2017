@@ -115,6 +115,10 @@ for hmax in [0, 1, 2, 5, 10, 20, 50, np.inf]:
     table = pd.concat([table, res], axis=0)
 
 
+# **Note**: This is what you should see while experiments are in progress:
+# 
+# <img src="img/tqdm_progress.png">
+
 # In[6]:
 
 table.info()
@@ -160,7 +164,7 @@ ax = sns.boxplot(x="hmax", y="best_y", data=table)
 
 # #### Number of evaluations (when successful), based on `hmax`?
 # 
-# Let's add another columns, `success`:
+# Let's add another column, `success`:
 
 # In[12]:
 
@@ -238,7 +242,7 @@ feo_by_hmax = table.pivot_table(
 feo_by_hmax
 
 
-# In[28]:
+# In[23]:
 
 ax = feo_by_hmax.plot(kind='bar')
 
@@ -247,42 +251,44 @@ ax = feo_by_hmax.plot(kind='bar')
 # 
 # Let's review this function a little bit:
 
-# In[29]:
+# In[24]:
 
 from objfun import Sum
 of = Sum([0, 0, 0, 0], [10, 10, 10, 10])
 
 
-# In[30]:
+# In[25]:
 
 x = of.generate_point()
 print(x)
 print(of.evaluate(x))
 
 
-# In[31]:
+# In[26]:
 
 print(of.get_neighborhood(x, 1))
 
 
-# In[32]:
+# In[27]:
 
 print(of.get_neighborhood(x, 2))
 
 
-# In[33]:
+# ^^ This behaviour is intended. See code for details.
+
+# In[28]:
 
 of.get_neighborhood([0, 0, 0, 0], 1)
 
 
-# In[34]:
+# In[29]:
 
 of.get_neighborhood([10, 10, 10, 10], 1)
 
 
 # And now, perform traditional experiments:
 
-# In[35]:
+# In[30]:
 
 table = pd.DataFrame()
 for hmax in [0, 1, 2, 5, 10, 20, 50, np.inf]:
@@ -292,26 +298,26 @@ for hmax in [0, 1, 2, 5, 10, 20, 50, np.inf]:
 
 # #### Quality of solutions based on hmax?
 
-# In[36]:
+# In[31]:
 
 ax = sns.boxplot(x="hmax", y="best_y", data=table)
 
 
 # #### Number of evaluations (when successful), based on hmax?
 
-# In[37]:
+# In[32]:
 
 table['success'] = table['neval'] < np.inf
 
 
-# In[38]:
+# In[33]:
 
 ax = sns.boxplot(x="hmax", y="neval", data=table[table['success'] == True])
 
 
 # #### Reliability?
 
-# In[42]:
+# In[34]:
 
 rel_by_hmax = table.pivot_table(
     index=['hmax'],
@@ -320,19 +326,19 @@ rel_by_hmax = table.pivot_table(
 )
 
 
-# In[44]:
+# In[35]:
 
 rel_by_hmax
 
 
-# In[43]:
+# In[36]:
 
 ax = rel_by_hmax.plot(kind='bar')
 
 
 # #### Feoktistov criterion?
 
-# In[40]:
+# In[37]:
 
 feo_by_hmax = table.pivot_table(
     index=['hmax'],
@@ -341,14 +347,15 @@ feo_by_hmax = table.pivot_table(
 )
 
 
-# In[41]:
+# In[38]:
 
 ax = feo_by_hmax.plot(kind='bar')
 
 
 # # Assignments
 # 
-# 1. Implement examples in this notebook
+# 1. Implement examples in this notebook on your own
 # 1. Experiment with **neighbourhood diameter** `d` in `AirShip.get_neighborhood(x, d)`
-# 1. Add **Random Descent** heuristic (similar to Shoot & Go, but does not follow steepest descent, chooses direction of the descent randomly instead) into existing framework and analyze its performance.
-# 1. Add **Taboo Search** heuristic into existing framework and analyze its performance.
+# 1. Add new heuristics into existing framework and analyze their performance:
+#    1. **Random Descent**, similar to Shoot & Go, but does not follow steepest descent, chooses direction of the descent randomly instead
+#    1. **Taboo Search**
