@@ -53,15 +53,13 @@ class ShootAndGo(Heuristic):
         while go and h < self.hmax:
             go = False
             neighborhood = self.of.get_neighborhood(desc_best_x, 1)
+            h += 1
             for xn in neighborhood:
                 yn = self.evaluate(xn)
-                h += 1
                 if yn < desc_best_y:
                     desc_best_y = yn
                     desc_best_x = xn
                     go = True
-                if h == self.hmax:
-                    go = False
 
     def search(self):
         try:
