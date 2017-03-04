@@ -34,7 +34,7 @@ sns.set()
 
 # Import our code
 from heur import ShootAndGo
-from objfun import SumxSinx
+from objfun import SumSinx
 
 
 # # Random Descent vs Steepest Descent
@@ -74,7 +74,7 @@ NUM_RUNS = 10000
 
 # In[5]:
 
-of_demo = SumxSinx([0], [5])
+of_demo = SumSinx([0], [5])
 x = np.arange(6)
 y = [of_demo.evaluate([x]) for x in np.arange(6)]
 ax = plt.plot(x, y)
@@ -263,4 +263,4 @@ ax = g.map(sns.pointplot, 'hmax', 'feo','method', palette=sns.color_palette("mut
 
 # ## Assignment
 # 
-# * Investigate how many evaluations were made for some certain level $h$ of the local search phase of Shoot & Go heuristic. Evalute this statistics on both `Sum` and `SumxSinx` functions.
+# * Investigate how many evaluations were made for some certain level $h$ of the local search phase of Shoot & Go heuristic. Evalute this statistics on both `Sum` and `SumSinx` functions.
