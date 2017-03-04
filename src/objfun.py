@@ -87,3 +87,30 @@ class Sum(ObjFun):
 
     def evaluate(self, x):
         return np.sum(x)
+
+
+class SumSinx(ObjFun):
+
+    def __init__(self, a, b):
+        self.n = np.size(a)  # dimension of the task
+        super().__init__(fstar=0, a=a, b=b)
+
+    def generate_point(self):
+        return [np.random.randint(self.a[i], self.b[i]+1) for i in np.arange(self.n)]
+
+    def get_neighborhood(self, x, d):
+        assert d == 1, "SumSinx(x) supports neighbourhood with distance = 1 only"
+        nd = []
+        for i in np.arange(self.n):
+            if x[i] > self.a[i]:
+                xx = x.copy()
+                xx[i] -= 1
+                nd.append(xx)
+            if x[i] < self.b[i]:
+                xx = x.copy()
+                xx[i] += 1
+                nd.append(xx)
+        return nd
+
+    def evaluate(self, x):
+        return np.sum(np.abs(x*np.sin(x)))
