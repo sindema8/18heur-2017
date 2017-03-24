@@ -125,7 +125,7 @@ class FastSimulatedAnnealing(Heuristic):
                 f_y = self.evaluate(y)
                 s = (f_x - f_y)/T
                 swap = np.random.uniform() < 1/2 + np.arctan(s)/np.pi
-                Heuristic.log(self, {'step': k, 'x': x, 'f_x': f_x, 'y': y, 'f_y': f_y, 'T': T, 'swap': swap})
+                self.log({'step': k, 'x': x, 'f_x': f_x, 'y': y, 'f_y': f_y, 'T': T, 'swap': swap})
                 if swap:
                     x = y
                     f_x = f_y
