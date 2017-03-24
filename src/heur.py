@@ -92,23 +92,13 @@ class ShootAndGo(Heuristic):
 
 class FastSimulatedAnnealing(Heuristic):
 
-    def __init__(self, of, maxeval, T0, n0, alpha, r):
+    def __init__(self, of, maxeval, T0, n0, alpha, mutation):
         Heuristic.__init__(self, of, maxeval)
 
         self.T0 = T0
         self.n0 = n0
         self.alpha = alpha
-        self.r = r
-
-    def mutate(self, x):
-        # Discrete Cauchy mutation
-        n = np.size(x)
-        u = np.random.uniform(low=0.0, high=1.0, size=n)
-        r = self.r
-        x_new = x + r*np.tan(np.pi * (u-1/2))
-
-        x_new_corrected = np.minimum(np.maximum(x_new, self.of.a), self.of.b)  # trivial mutation correction (for now)
-        return np.array(np.round(x_new_corrected), dtype=int)
+        self.mutation = mutation
 
     def search(self):
         try:
@@ -121,7 +111,7 @@ class FastSimulatedAnnealing(Heuristic):
                 alpha = self.alpha
                 T = T0 / (1 + (k / n0) ** alpha) if alpha > 0 else T0 * np.exp(-(k / n0) ** -alpha)
 
-                y = self.mutate(x)
+                y = self.mutation.mutate(x)
                 f_y = self.evaluate(y)
                 s = (f_x - f_y)/T
                 swap = np.random.uniform() < 1/2 + np.arctan(s)/np.pi
