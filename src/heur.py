@@ -115,7 +115,7 @@ class FastSimulatedAnnealing(Heuristic):
             x = self.of.generate_point()
             f_x = self.evaluate(x)
             while True:
-                k = self.neval
+                k = self.neval - 1  # because of the first obj. fun. evaluation
                 T0 = self.T0
                 n0 = self.n0
                 alpha = self.alpha
