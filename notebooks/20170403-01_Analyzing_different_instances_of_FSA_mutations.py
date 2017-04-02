@@ -67,7 +67,7 @@ def experiment_fsa(of, maxeval, num_runs, T0, n0, alpha, mutation):
         result['mut_param'] = mutation['param']
         result['mut_corr'] = mutation['correction']
         results.append(result)
-    return pd.DataFrame(results, columns=['heur', 'run', 'muta_param', 'mut_corr', 'best_x', 'best_y', 'neval'])
+    return pd.DataFrame(results, columns=['heur', 'run', 'mut_param', 'mut_corr', 'best_x', 'best_y', 'neval'])
 
 
 # In[6]:
