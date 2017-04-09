@@ -128,7 +128,7 @@ class FastSimulatedAnnealing(Heuristic):
 
 class GeneticOptimization(Heuristic):
 
-    def __init__(self, of, maxeval, N, M, Tsel1, Tsel2, mutation, co_n):
+    def __init__(self, of, maxeval, N, M, Tsel1, Tsel2, mutation, crossover):
         Heuristic.__init__(self, of, maxeval)
 
         assert M > N, 'M should be larger than N'
@@ -137,7 +137,7 @@ class GeneticOptimization(Heuristic):
         self.Tsel1 = Tsel1  # first selection temperature
         self.Tsel2 = Tsel2  # second selection temperature
         self.mutation = mutation
-        self.co_n = co_n  # number of crossover points
+        self.crossover = crossover
 
     @staticmethod
     def sort_pop(pop_x, pop_f):
@@ -151,19 +151,6 @@ class GeneticOptimization(Heuristic):
         u = np.random.uniform(low=0.0, high=1.0, size=1)
         ix = np.minimum(np.ceil(-temp*np.log(u)), n_max)-1
         return ix.astype(int)
-
-    def crossover(self, x, y):
-        co_n = self.co_n+1  # number of crossover points
-        n = np.size(x)
-        z = x*0
-        k = 0
-        p = np.ceil(n/co_n).astype(int)
-        for i in np.arange(1, co_n+1):
-            ix_from = k
-            ix_to = np.minimum(k+p, n)
-            z[ix_from:ix_to] = x[ix_from:ix_to] if np.mod(i, 2) == 1 else y[ix_from:ix_to]
-            k += p
-        return z
 
     def search(self):
         try:
@@ -189,7 +176,7 @@ class GeneticOptimization(Heuristic):
                     parent_b_ix = self.rank_select(temp=self.Tsel1, n_max=self.N)  # 2nd --//-- (not unique!)
                     par_a = pop_X[parent_a_ix, :][0]
                     par_b = pop_X[parent_b_ix, :][0]
-                    z = self.crossover(par_a, par_b)
+                    z = self.crossover.crossover(par_a, par_b)
                     z_mut = self.mutation.mutate(z)
                     work_pop_X[i, :] = z_mut
                     work_pop_f[i] = self.evaluate(z_mut)
