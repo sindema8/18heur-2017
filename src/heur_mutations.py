@@ -1,3 +1,4 @@
+from utils import is_integer
 import numpy as np
 
 
@@ -68,7 +69,8 @@ class CauchyMutation(Mutation):
         u = np.random.uniform(low=0.0, high=1.0, size=n)
         r = self.r
         x_new = x + r * np.tan(np.pi * (u - 1 / 2))
-        x_new = np.array(np.round(x_new), dtype=int)
+        if is_integer(x):
+            x_new = np.array(np.round(x_new), dtype=int)
         x_new_corrected = self.correction.correct(x_new)
         return x_new_corrected
 
@@ -85,7 +87,11 @@ class GaussMutation(Mutation):
     def mutate(self, x):
         n = np.size(x)
         x_new = np.random.normal(x, self.sigma, size=n)
-        x_new = np.array(np.round(x_new), dtype=int)
+        if is_integer(x):
+            x_new = np.array(np.round(x_new), dtype=int)
         x_new_corrected = self.correction.correct(x_new)
         return x_new_corrected
 
+
+if __name__ == "__main__":
+    pass

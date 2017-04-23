@@ -1,4 +1,5 @@
 import numpy as np
+from utils import is_integer
 
 
 class Crossover:
@@ -10,7 +11,7 @@ class Crossover:
         pass
 
     def crossover(self, x, y):
-        z = np.array([x[i] if np.random.uniform() < 0.5 else y[i] for i in np.arange(x.size)], dtype=int)
+        z = np.array([x[i] if np.random.uniform() < 0.5 else y[i] for i in np.arange(x.size)], dtype=x.dtype)
         return z
 
 
@@ -45,6 +46,15 @@ class RandomCombination(Crossover):
         pass
 
     def crossover(self, x, y):
-        z = np.array([np.random.randint(np.min([x[i], y[i]]), np.max([x[i], y[i]]) + 1) for i in np.arange(x.size)],
-                     dtype=int)
+
+        if is_integer(x):
+            z = np.array([np.random.randint(np.min([x[i], y[i]]), np.max([x[i], y[i]]) + 1) for i in np.arange(x.size)],
+                         dtype=x.dtype)
+        else:
+            z = np.array([np.random.uniform(np.min([x[i], y[i]]), np.max([x[i], y[i]])) for i in np.arange(x.size)],
+                         dtype=x.dtype)
         return z
+
+
+if __name__ == "__main__":
+    pass

@@ -141,8 +141,7 @@ class TSPGrid(ObjFun):
         self.b = np.arange(n-2, -1, -1)
 
     def generate_point(self):
-        return [np.random.randint(self.a[i], self.b[i] + 1) for i in np.arange(self.n-1)]
-        #return [np.random.randint(0, i+1) for i in self.a]
+        return np.array([np.random.randint(self.a[i], self.b[i] + 1) for i in np.arange(self.n-1)], dtype=int)
 
     def decode(self, x):
         """
@@ -237,3 +236,26 @@ class Zebra3(ObjFun):
                     f += 0.9
         f = self.n/3-f
         return f
+
+
+class DeJong1(ObjFun):
+    """
+    De Jong function 1 (sphere)
+    http://www.geatbx.com/docu/fcnindex-01.html#P89_3085
+    """
+
+    def __init__(self, n, eps=0.01):
+        self.fstar = 0 + eps
+        self.n = n
+        self.a = -5.12*np.ones(self.n, dtype=np.float64)
+        self.b = 5.12*np.ones(self.n, dtype=np.float64)
+
+    def generate_point(self):
+        return np.array([np.random.uniform(self.a[i], self.b[i]) for i in np.arange(self.n)], dtype=np.float64)
+
+    def evaluate(self, x):
+        return np.sum([x[i] ** 2 for i in range(self.n)])
+
+
+if __name__ == "__main__":
+    pass

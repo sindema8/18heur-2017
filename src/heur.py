@@ -155,7 +155,7 @@ class GeneticOptimization(Heuristic):
     def search(self):
         try:
             # Initialization:
-            pop_X = np.zeros([self.N, np.size(self.of.a)], dtype=int)  # population solution vectors
+            pop_X = np.zeros([self.N, np.size(self.of.a)], dtype=self.of.a.dtype)  # population solution vectors
             pop_f = np.zeros(self.N)  # population fitness (objective) function values
             # a.) generate the population
             for i in np.arange(self.N):
@@ -169,7 +169,7 @@ class GeneticOptimization(Heuristic):
             # Evolution iteration
             while True:
                 # 1.) generate the working population
-                work_pop_X = np.zeros([self.M, np.size(self.of.a)], dtype=int)
+                work_pop_X = np.zeros([self.M, np.size(self.of.a)], dtype=self.of.a.dtype)
                 work_pop_f = np.zeros(self.M)
                 for i in np.arange(self.M):
                     parent_a_ix = self.rank_select(temp=self.Tsel1, n_max=self.N)  # select first parent
@@ -199,3 +199,7 @@ class GeneticOptimization(Heuristic):
             return self.report_end()
         except:
             raise
+
+
+if __name__ == "__main__":
+    pass
