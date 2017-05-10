@@ -45,7 +45,7 @@ class ExtensionCorrection(Correction):
 
     def correct(self, x):
         d = self.of.b - self.of.a
-        x = self.of.a + np.mod(x - self.of.a, d + 1)
+        x = self.of.a + np.mod(x - self.of.a, d + (1 if is_integer(x) else 0))
         return x
 
 
