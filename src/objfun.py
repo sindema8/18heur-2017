@@ -256,6 +256,25 @@ class DeJong1(ObjFun):
     def evaluate(self, x):
         return np.sum([x[i] ** 2 for i in range(self.n)])
 
+class Rosenbrock(ObjFun):
+    """
+    Rosenbrock 2-dimensional function
+    http://www.geatbx.com/docu/fcnindex-01.html#P129_5426
+
+    """
+
+    def __init__(self, n, eps=0.01):
+        self.fstar = 0 + eps
+        self.n = n
+        self.a = -2.048 * np.ones(self.n, dtype=np.float64)
+        self.b = 2.048 * np.ones(self.n, dtype=np.float64)
+
+    def generate_point(self):
+        return np.array([np.random.uniform(self.a[i], self.b[i]) for i in np.arange(self.n)], dtype=np.float64)
+
+    def evaluate(self, x):
+        return np.sum([(100 * ((x[i + 1]) - x[i] ** 2) ** 2 + (1 - x[i]) ** 2) for i in range(self.n - 1)])
+
 
 class HMeans(ObjFun):
     """
