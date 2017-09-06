@@ -1,5 +1,5 @@
 import numpy as np
-
+import math
 
 class ObjFun(object):
     """Generic objective function super-class."""
@@ -274,6 +274,25 @@ class Rosenbrock(ObjFun):
 
     def evaluate(self, x):
         return np.sum([(100 * ((x[i + 1]) - x[i] ** 2) ** 2 + (1 - x[i]) ** 2) for i in range(self.n - 1)])
+
+class Schwefel(ObjFun):
+    """
+    Schwefel's function 2-dimensional
+    http://www.geatbx.com/docu/fcnindex-01.html#P150_6749
+
+    """
+
+    def __init__(self, n, eps=0.01):
+        self.fstar = -418.9829 * n  + eps
+        self.n = n
+        self.a = -500 * np.ones(self.n, dtype=np.float64)
+        self.b = 500 * np.ones(self.n, dtype=np.float64)
+
+    def generate_point(self):
+        return np.array([np.random.uniform(self.a[i], self.b[i]) for i in np.arange(self.n)], dtype=np.float64)
+
+    def evaluate(self, x):
+        return np.sum([(-x[i] * math.sin(math.sqrt(math.fabs(x[i])))) for i in range(self.n)])
 
 
 class HMeans(ObjFun):
